@@ -9,6 +9,7 @@ import { Note } from "@/components/sections/Note";
 import { Closing } from "@/components/sections/Closing";
 import { GirihPattern } from "@/components/ui/GirihPattern";
 import { EssentialsBar } from "@/components/ui/EssentialsBar";
+import { AmbientSound } from "@/components/ui/AmbientSound";
 import { Sep } from "@/components/ui/Sep";
 import { invite } from "@/content/invite";
 
@@ -65,6 +66,7 @@ export default function Page() {
         </div>
       </main>
       <EssentialsBar />
+      <AmbientSound />
     </>
   );
 }

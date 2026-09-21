@@ -51,10 +51,11 @@ src/components/
   intro/Gate        sealed-invitation overlay (tap to open, remembered per session)
   three/            R3F scene: SceneCanvas (tiering, visibility pause, context-loss recovery), GoldStar, GoldDust, FloatingStars, Studio lighting, Effects
   sections/         Hero, Verse (Ar-Rum 30:21), Invitation (formal wording), Details (foil day numeral, countdown in a shamsa medallion, calendar), Venue (map, QR + /qr.png download), Note (Asr-amber band + arrival timeline), Closing (dua, couplet, share)
-  ui/               Countdown, DateNumeral, EssentialsBar (sticky phone bar), QrCard, CalendarButtons, ShareButtons, MapEmbed, Reveal, NastaliqWords, GirihPattern, GrainOverlay
+  ui/               Countdown, DateNumeral, EssentialsBar (sticky phone bar), QrCard, CalendarButtons, ShareButtons, MapEmbed, Reveal, NastaliqWords, GirihPattern, GrainOverlay, AmbientSound
 src/hooks/          useDeviceTier (WebGL capability gate), useCountdown (hydration-safe)
-src/lib/            gsap registry, calendar/ICS builders, QR generator, Urdu digits, scroll state
+src/lib/            gsap registry, calendar/ICS builders, QR generator, Urdu digits, scroll state, ambient-tone (generated Hijaz ambience)
 public/calligraphy/ Bismillah SVGs (CC0, see CREDITS.md)
+public/audio/       drop nasheed.webm + nasheed.m4a here to replace the generated tone (see its README)
 ```
 
 ## Performance and robustness

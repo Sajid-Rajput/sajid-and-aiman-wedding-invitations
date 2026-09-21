@@ -8,6 +8,8 @@ import { scrollState } from "@/lib/scroll-state";
 
 /** Must match the Canvas camera position in SceneCanvas. */
 const CAMERA_Z = 8;
+/** Widest point of the lattice at scale 1: the squares' corners (half-width 1.35, rotated 45°). */
+const LATTICE_OUTER = 1.35 * Math.SQRT2;
 
 /**
  * Drives the hero object from scroll (recedes and turns as the hero leaves)
@@ -28,11 +30,22 @@ export function HeroRig({ children }: { children: ReactNode }) {
     // The straight tube squares sit 1.35 units from the centre at scale 1, so they are what can cross
     // the words: keep that distance beyond the copy's half-extent, with clearance for the slow float
     // tilt, and compensate for the perspective shrink caused by pushing the group back in z.
-    const depth = viewport.width < viewport.height ? -1.2 : 0;
+    const portrait = viewport.width < viewport.height;
+    const depth = portrait ? -1.2 : 0;
     const perspective = (CAMERA_Z - depth) / CAMERA_Z;
-    const halfExtent = unitsPerPx > 0 ? (Math.max(w, h) / 2) * unitsPerPx * 1.28 * perspective : 0;
-    const minBase = (Math.min(viewport.width, viewport.height) * 0.42) / 1.75;
-    const maxBase = (Math.max(viewport.width, viewport.height) * 1.25) / 1.75;
+    // Portrait is a different problem from landscape. The copy is a tall, narrow column, and a ring
+    // wide enough to girdle its full HEIGHT is far wider than the phone is across — the guest then
+    // sees a few enormous tubes crossing the screen instead of a lattice. So frame the column's
+    // width there, and cap against the narrow axis, which is what actually constrains the view.
+    const extentPx = portrait ? w : Math.max(w, h);
+    const halfExtent = unitsPerPx > 0 ? (extentPx / 2) * unitsPerPx * 1.28 * perspective : 0;
+    // The lattice's widest point is the tilted squares' corners at 1.35 * sqrt(2), not the 1.75 torus
+    // radius — and sitting at `depth` it shrinks by CAMERA_Z/(CAMERA_Z - depth). Size the portrait cap
+    // from both so the whole figure lands inside 88% of the half-width, margin included.
+    const maxBase = portrait
+      ? (viewport.width * 0.5 * 0.88) / (LATTICE_OUTER / perspective)
+      : (Math.max(viewport.width, viewport.height) * 1.25) / 1.75;
+    const minBase = Math.min((Math.min(viewport.width, viewport.height) * 0.42) / 1.75, maxBase);
     const base = Math.min(Math.max(halfExtent / 1.35, minBase), maxBase);
     if (group.current) {
       // Centre the lattice on the copy, not on the viewport: the hero's padding is asymmetric, so a

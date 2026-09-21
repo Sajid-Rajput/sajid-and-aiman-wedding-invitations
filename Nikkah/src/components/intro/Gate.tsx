@@ -100,9 +100,12 @@ export function Gate() {
           <img src={SEAL_DATA_URI} alt="" width="200" height="200" className="gate-seal-img" fetchPriority="high" decoding="sync" />
         </button>
         <div className="gate-text">
-          <p className="ur-title text-gold-300" lang="ur">
-            {invite.gate.line1}
-          </p>
+          {/* Hairline cartouche with a diamond set into the top and bottom rules. */}
+          <div className="cartouche">
+            <p className="ur-title text-gold-300" lang="ur">
+              {invite.gate.line1}
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -70,6 +70,7 @@ export function Hero({ gated }: { gated: boolean }) {
         .add(() => document.querySelector(".hero-bismillah")?.classList.add("is-lit"), reduce ? 0.3 : 2.6)
         .fromTo(".hero-glow", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.6 }, "-=1.2")
         .add(() => window.dispatchEvent(new CustomEvent("hero:words")), "-=0.7")
+        .fromTo(".hero-flourish", { opacity: 0, scaleX: 0.15 }, { opacity: 1, scaleX: 1, duration: 1.1, stagger: 0.09, ease: "power2.out" }, "-=0.35")
         .fromTo(".hero-amp", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.6)" }, "+=0.5")
         .fromTo(".hero-latin", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, "+=0.3")
         .fromTo(".hero-date", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, "-=0.7")
@@ -114,14 +115,22 @@ export function Hero({ gated }: { gated: boolean }) {
         </div>
         <NastaliqWords as="h1" text={invite.title} className="hero-title ur-display-1 foil-text foil-shimmer" trigger={false} event="hero:words" delay={0} />
         <div className="hero-names">
-          <NastaliqWords as="h2" text={invite.groom.name} className="hero-name ur-display-2 text-ivory" trigger={false} event="hero:words" delay={0.55} />
+          <div className="hero-name-row">
+            <span className="hero-flourish" aria-hidden="true" />
+            <NastaliqWords as="h2" text={invite.groom.name} className="hero-name ur-display-2 text-ivory" trigger={false} event="hero:words" delay={0.55} />
+            <span className="hero-flourish" aria-hidden="true" />
+          </div>
           <NastaliqWords as="p" text={invite.groom.parent} className="hero-parent ur-caption" trigger={false} event="hero:words" delay={0.8} />
           <p className="hero-amp" aria-hidden="true">
             <span className="wa-ornament" lang="ur">
               و
             </span>
           </p>
-          <NastaliqWords as="h2" text={invite.bride.name} className="hero-name ur-display-2 text-ivory" trigger={false} event="hero:words" delay={1.0} />
+          <div className="hero-name-row">
+            <span className="hero-flourish" aria-hidden="true" />
+            <NastaliqWords as="h2" text={invite.bride.name} className="hero-name ur-display-2 text-ivory" trigger={false} event="hero:words" delay={1.0} />
+            <span className="hero-flourish" aria-hidden="true" />
+          </div>
           <NastaliqWords as="p" text={invite.bride.parent} className="hero-parent ur-caption" trigger={false} event="hero:words" delay={1.25} />
         </div>
         <p className="hero-latin lat-whisper text-gold-400" dir="ltr" lang="en">

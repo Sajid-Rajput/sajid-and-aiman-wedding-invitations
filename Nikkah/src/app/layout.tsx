@@ -20,6 +20,10 @@ export const metadata: Metadata = {
     description: SITE.descriptionUrdu,
   },
   twitter: { card: "summary_large_image", title: SITE.titleUrdu, description: SITE.descriptionUrdu },
+  // Machine translation reflows the Nastaliq into a Latin face and breaks the RTL layout,
+  // so the browser must not offer it. `google: notranslate` suppresses Chrome's prompt;
+  // the `notranslate` class and translate="no" below cover the rest and manual invocation.
+  other: { google: "notranslate" },
 };
 
 export const viewport: Viewport = {
@@ -32,7 +36,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ur" dir="rtl" className={`${fontVariables} h-full antialiased`} suppressHydrationWarning>
+    <html
+      lang="ur"
+      dir="rtl"
+      translate="no"
+      className={`notranslate ${fontVariables} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col">
         <SmoothScroll>{children}</SmoothScroll>
         <GrainOverlay />

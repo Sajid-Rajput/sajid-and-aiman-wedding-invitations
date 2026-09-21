@@ -302,6 +302,19 @@ a {
 .hero-title { margin-top: -0.35rem; font-size: clamp(2.4rem, 1.4rem + 4.6vw, 5.2rem); line-height: 1.35; }
 .hero-names { display: flex; flex-direction: column; align-items: center; margin-top: clamp(1.2rem, 4.2vh, 2.4rem); }
 .hero-name { line-height: 1.65; font-size: clamp(1.7rem, 1.2rem + 2.6vw, 3rem); }
+/* Each name sits between two hairlines that taper away, tipped by a small gold lozenge. */
+.hero-name-row { display: flex; align-items: center; justify-content: center; gap: clamp(0.7rem, 3vw, 1.3rem); width: min(100%, 30rem); }
+.hero-flourish { position: relative; flex: 1 1 0; height: 1px; opacity: 0; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold-500) 65%, transparent)); }
+.hero-flourish::after {
+  content: ""; position: absolute; top: 50%; width: 0.34rem; height: 0.34rem;
+  background: var(--gold-400); transform: translateY(-50%) rotate(45deg);
+}
+/* Mirror the pair so both taper outward from the name. */
+.hero-name-row .hero-flourish:first-child { transform-origin: right center; }
+.hero-name-row .hero-flourish:first-child::after { right: -0.1rem; }
+.hero-name-row .hero-flourish:last-child { transform-origin: left center; background: linear-gradient(270deg, transparent, color-mix(in oklab, var(--gold-500) 65%, transparent)); }
+.hero-name-row .hero-flourish:last-child::after { left: -0.1rem; }
+@media (prefers-reduced-motion: reduce) { .hero-flourish { opacity: 1; } }
 .hero-parent { margin-top: 0.6em; }
 /* The و sits between two name blocks: the top margin absorbs the parent line's descenders so the
    ornament reads as optically centred between them. */
@@ -330,6 +343,15 @@ main > .section { position: relative; z-index: 1; }
 .gate-seal:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 6px; }
 .gate-seal-img { width: 100%; height: 100%; display: block; border-radius: inherit; }
 .gate-text { text-align: center; }
+/* Cartouche: a hairline frame with a gold lozenge set into the top and bottom rules. */
+.cartouche { position: relative; padding: clamp(0.7rem, 2.4vw, 1rem) clamp(1.6rem, 9vw, 3rem); border: 1px solid color-mix(in oklab, var(--gold-500) 40%, transparent); }
+.cartouche::before, .cartouche::after {
+  content: ""; position: absolute; left: 50%; width: 0.46rem; height: 0.46rem;
+  background: var(--gold-400); transform: translate(-50%, -50%) rotate(45deg);
+  box-shadow: 0 0 12px color-mix(in oklab, var(--gold-400) 55%, transparent);
+}
+.cartouche::before { top: 0; }
+.cartouche::after { top: 100%; }
 html[data-gate="open"] { overflow: hidden; }
 
 @media (max-height: 720px) {

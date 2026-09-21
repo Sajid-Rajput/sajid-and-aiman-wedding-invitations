@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Source audio masters: only the encoded files in public/audio/ are published
+/*.mp3

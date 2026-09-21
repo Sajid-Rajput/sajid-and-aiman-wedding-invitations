@@ -56,7 +56,9 @@ export function AmbientSound() {
   const play = useCallback(() => {
     if (audio.current) {
       audio.current.volume = 0;
-      void audio.current.play().then(() => fadeAudio(audio.current!, 0.55, 3000)).catch(() => {});
+      // The published track is mastered to -19 LUFS, so it needs most of the headroom to sit
+      // audibly behind the page; the generated tone sets its own level instead.
+      void audio.current.play().then(() => fadeAudio(audio.current!, 0.8, 3000)).catch(() => {});
       return;
     }
     if (!ctx.current) {
@@ -86,6 +88,13 @@ export function AmbientSound() {
       }
       setMuted(!wanted);
       if (!wanted) return;
+
+      // On a metered or 2G connection the generated tone costs nothing, so never pull the track.
+      const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+      if (conn?.saveData === true || /(^|-)2g$/.test(conn?.effectiveType ?? "")) {
+        play();
+        return;
+      }
 
       // Probe for a published track. The element is created up front so that .play() below still
       // counts as gesture-initiated; if nothing is there we fall through to the generated tone.

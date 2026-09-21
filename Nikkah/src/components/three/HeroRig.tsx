@@ -41,9 +41,10 @@ export function HeroRig({ children }: { children: ReactNode }) {
     const halfExtent = unitsPerPx > 0 ? (extentPx / 2) * unitsPerPx * 1.28 * perspective : 0;
     // The lattice's widest point is the tilted squares' corners at 1.35 * sqrt(2), not the 1.75 torus
     // radius — and sitting at `depth` it shrinks by CAMERA_Z/(CAMERA_Z - depth). Size the portrait cap
-    // from both so the whole figure lands inside 88% of the half-width, margin included.
+    // from both. 1.3 half-widths lets the corners run off the sides so the arcs sweep the screen the
+    // way they do on a desktop, while the tubes still clear the names and the date line below them.
     const maxBase = portrait
-      ? (viewport.width * 0.5 * 0.88) / (LATTICE_OUTER / perspective)
+      ? (viewport.width * 0.5 * 1.3) / (LATTICE_OUTER / perspective)
       : (Math.max(viewport.width, viewport.height) * 1.25) / 1.75;
     const minBase = Math.min((Math.min(viewport.width, viewport.height) * 0.42) / 1.75, maxBase);
     const base = Math.min(Math.max(halfExtent / 1.35, minBase), maxBase);

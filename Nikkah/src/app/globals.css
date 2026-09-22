@@ -77,7 +77,7 @@ html {
   font-synthesis: none;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
-  scroll-behavior: auto; /* Lenis owns smoothing, on pointer and touch alike */
+  scroll-behavior: auto; /* Lenis owns smoothing on desktop */
 }
 
 body {

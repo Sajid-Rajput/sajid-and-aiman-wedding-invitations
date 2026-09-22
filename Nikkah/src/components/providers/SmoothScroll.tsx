@@ -12,8 +12,8 @@ function ScrollTriggerBridge() {
 }
 
 /**
- * Holds the page still behind the sealed gate. `html { overflow: hidden }` is no longer enough on
- * a phone: with syncTouch Lenis consumes the touchmove itself and scrolls its own way.
+ * Holds Lenis still behind the sealed gate, and puts it back at the top when the gate opens, so its
+ * internal position can never disagree with the page the guest is shown.
  * useLenis (not the ref) because the instance is only created in ReactLenis' own effect.
  */
 function GateScrollLock() {
@@ -32,9 +32,11 @@ function GateScrollLock() {
 }
 
 /**
- * Smooth scrolling on every device. Phones get Lenis' touch sync too, tuned to stay close to the
- * platform feel — a short lerp and near-native inertia, so it eases the scroll without fighting the
- * thumb. Lenis honours prefers-reduced-motion itself.
+ * Smooth wheel scrolling on fine-pointer devices only. Phones keep the native compositor scroll,
+ * which is what WhatsApp guests expect and what performs best. Lenis honours prefers-reduced-motion itself.
+ *
+ * Touch sync was tried on 2026-09-22 and reverted the same day: even at a short lerp it does not
+ * feel good under a thumb. Do not re-enable it without testing on a real phone first.
  */
 const FINE = "(hover: hover) and (pointer: fine)";
 const subscribeFine = (cb: () => void) => {
@@ -48,19 +50,7 @@ const getFineServer = () => false;
 /** Native scroll is left alone inside anything that scrolls on its own (the map iframe, long lists). */
 const prevent = (node: HTMLElement) => node.tagName === "IFRAME" || node.hasAttribute("data-lenis-prevent");
 
-const TOUCH = {
-  autoRaf: false,
-  anchors: true,
-  smoothWheel: true,
-  syncTouch: true,
-  // Short lerp + a slightly damped inertia: smoothed, but the page still stops where the thumb expects.
-  syncTouchLerp: 0.09,
-  touchInertiaExponent: 1.6,
-  touchMultiplier: 1.1,
-  prevent,
-} as const;
-
-const FINE_POINTER = {
+const OPTIONS = {
   autoRaf: false,
   anchors: true,
   smoothWheel: true,
@@ -72,9 +62,10 @@ const FINE_POINTER = {
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<LenisRef>(null);
-  const fine = useSyncExternalStore(subscribeFine, getFine, getFineServer);
+  const enabled = useSyncExternalStore(subscribeFine, getFine, getFineServer);
 
   useEffect(() => {
+    if (!enabled) return;
     const update = (time: number) => {
       lenisRef.current?.lenis?.raf(time * 1000);
     };
@@ -84,14 +75,13 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       gsap.ticker.remove(update);
       gsap.ticker.lagSmoothing(500, 33);
     };
-  }, []);
+  }, [enabled]);
 
   return (
     <>
-      {/* Keyed so switching pointer type (a tablet gaining a mouse) rebuilds the instance cleanly. */}
-      <ReactLenis key={fine ? "fine" : "touch"} root ref={lenisRef} options={fine ? FINE_POINTER : TOUCH} />
-      <ScrollTriggerBridge />
-      <GateScrollLock />
+      {enabled && <ReactLenis root ref={lenisRef} options={OPTIONS} />}
+      {enabled && <ScrollTriggerBridge />}
+      {enabled && <GateScrollLock />}
       {children}
     </>
   );

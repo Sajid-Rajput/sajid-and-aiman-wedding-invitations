@@ -215,7 +215,9 @@ a {
 }
 
 /* ---------- Countdown reels ---------- */
-.countdown { min-height: 7.5rem; opacity: 0; transition: opacity 0.8s var(--ease-film); }
+/* grid-centred: the reserved min-height is taller than the reels once they clamp down on
+   a phone, and a top-aligned block would float the digits above the shamsa behind them. */
+.countdown { display: grid; align-content: center; justify-items: center; min-height: 7.5rem; opacity: 0; transition: opacity 0.8s var(--ease-film); }
 .countdown[data-ready="true"] { opacity: 1; }
 .units { display: flex; justify-content: center; gap: clamp(0.9rem, 4vw, 2.4rem); }
 .unit { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; min-width: 3.2rem; }

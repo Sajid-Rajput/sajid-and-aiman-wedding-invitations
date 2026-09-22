@@ -28,13 +28,13 @@ function Shamsa() {
 
 export function Details() {
   return (
-    <Reveal as="section" className="section">
+    <Reveal as="section" className="section sec-tint">
       <div className="container narrow text-center">
         <h2 className="ur-display-2 text-gold-300" lang="ur" data-reveal>
           {invite.when.heading}
         </h2>
 
-        <div className="card mihrab mt-10" data-reveal>
+        <div className="card mihrab mt-6 md:mt-10" data-reveal>
           <DateNumeral />
           <p className="ur-body text-ivory-muted mt-2" lang="ur">
             {invite.when.hijri} <span className="ur-caption">{invite.when.hijriNote}</span>
@@ -48,7 +48,7 @@ export function Details() {
           </p>
         </div>
 
-        <div className="mt-14" data-reveal>
+        <div className="mt-12 md:mt-14" data-reveal>
           <h3 id="countdown-heading" className="ur-title text-ivory" lang="ur">
             {invite.countdown.heading}
           </h3>

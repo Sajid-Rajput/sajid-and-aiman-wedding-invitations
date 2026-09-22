@@ -11,6 +11,7 @@ import { GirihPattern } from "@/components/ui/GirihPattern";
 import { EssentialsBar } from "@/components/ui/EssentialsBar";
 import { AmbientSound } from "@/components/ui/AmbientSound";
 import { Sep } from "@/components/ui/Sep";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { invite } from "@/content/invite";
 
 const IconWhatsapp = () => (
@@ -30,9 +31,12 @@ export default function Page() {
           <GirihPattern size={150} opacity={0.05} className="text-gold-500" />
           <div id="details">
             <Verse />
+            <SectionDivider />
             <Invitation />
+            <SectionDivider />
             <Details />
           </div>
+          <SectionDivider />
           <Venue />
           <Note />
           <Closing />

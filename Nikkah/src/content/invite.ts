@@ -13,6 +13,8 @@ export const invite = {
   coupleLatin: "Sajid & Aiman",
   gate: {
     line1: "دعوت نامۂ نکاح",
+    /** The call to action under the title: guests were tapping nothing because nothing asked them to. */
+    tap: "کھولنے کے لیے مہر پر ٹیپ کریں",
     open: "دعوت نامہ کھولیں",
     skip: "آگے بڑھیں",
   },

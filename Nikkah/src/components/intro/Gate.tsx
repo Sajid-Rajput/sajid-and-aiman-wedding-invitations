@@ -103,6 +103,9 @@ export function Gate() {
           <p className="ur-title text-gold-300" lang="ur">
             {invite.gate.line1}
           </p>
+          <p className="gate-tap ur-caption text-gold-400" lang="ur">
+            {invite.gate.tap}
+          </p>
         </div>
       </div>
     </div>

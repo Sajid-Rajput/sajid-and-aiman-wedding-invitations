@@ -33,7 +33,7 @@ export function Verse() {
   );
 
   return (
-    <section ref={scope} className="section verse">
+    <section ref={scope} className="section sec-tint verse">
       <div className="container narrow text-center">
         <p className="verse-eyebrow eyebrow" lang="ur">{invite.eyebrows.verse}</p>
         <div className="verse-wrap">

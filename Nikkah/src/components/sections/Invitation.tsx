@@ -5,7 +5,7 @@ import { NastaliqWords } from "@/components/ui/NastaliqWords";
 /** The formal invitation sentence from both families, as printed on a Lahori card. */
 export function Invitation() {
   return (
-    <Reveal as="section" className="section pt-0">
+    <Reveal as="section" className="section">
       <div className="container narrow text-center">
         <p className="ur-title text-gold-300" lang="ur" data-reveal>
           {invite.salam}

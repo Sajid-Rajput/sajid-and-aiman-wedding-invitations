@@ -42,7 +42,7 @@ export function Venue() {
           {invite.where.latin}
         </p>
 
-        <div className="mt-10 grid items-center gap-8 md:grid-cols-[1.4fr_1fr]" data-reveal>
+        <div className="mt-8 grid items-center gap-8 md:mt-10 md:grid-cols-[1.4fr_1fr]" data-reveal>
           <MapEmbed />
           <QrCard size={210} />
         </div>

@@ -1,10 +1,11 @@
 import { invite } from "@/content/invite";
 import { Reveal } from "@/components/ui/Reveal";
 import { ShareButtons } from "@/components/ui/ShareButtons";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export function Closing() {
   return (
-    <Reveal as="section" className="section" id="closing">
+    <Reveal as="section" className="section sec-tint" id="closing">
       <div className="container narrow text-center">
         <p className="eyebrow" lang="ur" data-reveal>{invite.eyebrows.dua}</p>
         <p className="ar-verse text-gold-200 mt-6" lang="ar" data-reveal>
@@ -14,7 +15,7 @@ export function Closing() {
           {invite.dua.urdu}
         </p>
 
-        <div className="hairline mx-auto my-12 w-48" data-reveal />
+        <SectionDivider className="is-inner my-12" />
 
         <div className="sher" lang="ur" data-reveal>
           {invite.sher.lines.map((l, i) => (
@@ -24,7 +25,7 @@ export function Closing() {
           ))}
         </div>
 
-        <div className="hairline mx-auto my-12 w-48" data-reveal />
+        <SectionDivider className="is-inner my-12" />
 
         <p className="ur-title text-ivory" lang="ur" data-reveal>
           {invite.closing.line1}
